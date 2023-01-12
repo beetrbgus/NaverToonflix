@@ -12,6 +12,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<WebToonModel> webtoonList = [];
   bool isLoading = true;
+  // initState를 이용해 API를 fetching한다면
+  // 실수하거나, 반복이 많아질 수 있음.
   @override
   void initState() {
     super.initState();
