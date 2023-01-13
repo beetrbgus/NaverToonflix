@@ -27,11 +27,17 @@ class HomeScreen extends StatelessWidget {
         future: webtoons,
         builder: (context, futureResult) {
           if (futureResult.hasData) {
-            // 많은 데이터를 연속적으로 보여주고 싶을 때 사용
-            return ListView(
-              children: [
-                for (var webtoon in futureResult.data!) Text(webtoon.title)
-              ],
+            // ListView보다 최적화 됨.
+            print(futureResult.data!.length);
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: futureResult.data!.length,
+              itemBuilder: (context, index) {
+                var webtoon = futureResult.data![index];
+                print(index);
+
+                return Text(webtoon.title);
+              },
             );
           } else {
             return const Center(
