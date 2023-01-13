@@ -27,7 +27,12 @@ class HomeScreen extends StatelessWidget {
         future: webtoons,
         builder: (context, futureResult) {
           if (futureResult.hasData) {
-            return const Text("There is Data");
+            // 많은 데이터를 연속적으로 보여주고 싶을 때 사용
+            return ListView(
+              children: [
+                for (var webtoon in futureResult.data!) Text(webtoon.title)
+              ],
+            );
           } else {
             return const Center(
               child: CircularProgressIndicator(),
