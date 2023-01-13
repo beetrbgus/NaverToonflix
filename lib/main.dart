@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:toonflix/screens/home_screen.dart';
 
@@ -17,6 +19,19 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomeScreen(),
+      scrollBehavior: MyCustomScrollBehavior(),
     );
   }
+}
+
+// Chrome에서 Flutter 2.5 버전 이후 스크롤이 안 됨.
+// 공식 사이트 참조 : https://docs.flutter.dev/release/breaking-changes/default-scroll-behavior-drag
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }
