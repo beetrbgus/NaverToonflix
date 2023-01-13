@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
           if (futureResult.hasData) {
             // ListView보다 최적화 됨.
             print(futureResult.data!.length);
-            return ListView.builder(
+            return ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: futureResult.data!.length,
               itemBuilder: (context, index) {
@@ -38,6 +38,10 @@ class HomeScreen extends StatelessWidget {
 
                 return Text(webtoon.title);
               },
+              // 구분자를 build 하는 인자
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 20,
+              ),
             );
           } else {
             return const Center(
