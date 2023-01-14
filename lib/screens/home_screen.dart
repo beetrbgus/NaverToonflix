@@ -29,7 +29,16 @@ class HomeScreen extends StatelessWidget {
           if (futureResult.hasData) {
             print(futureResult.data!.length);
             // ListView보다 최적화 됨.
-            return makeList(futureResult);
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                Expanded(
+                  child: makeList(futureResult),
+                ),
+              ],
+            );
           } else {
             return const Center(
               child: CircularProgressIndicator(),
@@ -44,15 +53,43 @@ class HomeScreen extends StatelessWidget {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: futureResult.data!.length,
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 20,
+      ),
       itemBuilder: (context, index) {
         var webtoon = futureResult.data![index];
-        print(index);
-
-        return Text(webtoon.title);
+        return Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 15,
+                    offset: const Offset(10, 7),
+                    color: Colors.black.withOpacity(0.8),
+                  )
+                ],
+              ),
+              clipBehavior: Clip.hardEdge,
+              width: 250,
+              child: Image.network(webtoon.thumb),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              webtoon.title,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        );
       },
       // 구분자를 build 하는 인자
       separatorBuilder: (context, index) => const SizedBox(
-        width: 20,
+        width: 40,
       ),
     );
   }
