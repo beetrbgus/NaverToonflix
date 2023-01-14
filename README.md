@@ -37,7 +37,6 @@ Flutter
 
 아래의 이미지처럼 네이버 웹툰의 UI를 적용해 보며 위젯 배치를 어떻게 할지 상상하며 실제로 
 개발해보기.
+![KakaoTalk_20230114_205813566](https://user-images.githubusercontent.com/88869529/212482334-7745e4e6-324c-47dc-8eb2-7ceca0e08e3e.jpg)
+![KakaoTalk_20230114_205813566_01](https://user-images.githubusercontent.com/88869529/212482335-5890458e-1a6f-4bb9-9d2a-a3ce3a414c0e.jpg)
 
-![KakaoTalk_20230114_205813566.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4017e981-ea94-4fc9-aa2e-d88f3b29c86b/KakaoTalk_20230114_205813566.jpg)
-
-![KakaoTalk_20230114_205813566_01.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/697408fa-ad82-4627-a7df-e4a910e9d0ad/KakaoTalk_20230114_205813566_01.jpg)
