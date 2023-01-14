@@ -11,6 +11,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // webtoon list에서 이동되기 때문에 Scaffold
+    print(webtoon.id);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -34,20 +35,23 @@ class DetailScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 15,
-                      offset: const Offset(10, 7),
-                      color: Colors.black.withOpacity(0.8),
-                    )
-                  ],
+              Hero(
+                tag: webtoon.id,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        offset: const Offset(10, 7),
+                        color: Colors.black.withOpacity(0.8),
+                      )
+                    ],
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  width: 250,
+                  child: Image.network(webtoon.thumb),
                 ),
-                clipBehavior: Clip.hardEdge,
-                width: 250,
-                child: Image.network(webtoon.thumb),
               ),
             ],
           ),
