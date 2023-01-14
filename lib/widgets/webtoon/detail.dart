@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toonflix/models/webtoon_detail.dart';
 import 'package:toonflix/models/webtoon_episode.dart';
 import 'package:toonflix/models/webtoon_model.dart';
@@ -19,18 +20,48 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Future<WebToonDetailInfo> webtoonDetail;
   late Future<List<WebToonEpisode>> episode;
-
+  late SharedPreferences prefs;
+  late bool isLiked = false;
   @override
   void initState() {
     super.initState();
     webtoonDetail = ApiService.getDetailWebToonInfo(widget.webtoon.id);
     episode = ApiService.getEpisodesById(widget.webtoon.id);
+    initPrefs();
+  }
+
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (likedToons.contains(widget.webtoon.id.toString())) {
+        setState(() {
+          isLiked = true;
+        });
+      }
+    } else {
+      await prefs.setStringList('likedToons', []);
+    }
+  }
+
+  onHeartTap() async {
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (isLiked) {
+        likedToons.remove(widget.webtoon.id.toString());
+      } else {
+        likedToons.add(widget.webtoon.id.toString());
+      }
+      await prefs.setStringList("likedToons", likedToons);
+      setState(() {
+        isLiked = !isLiked;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     // webtoon list에서 이동되기 때문에 Scaffold
-    print(widget.webtoon.id);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -45,6 +76,14 @@ class _DetailScreenState extends State<DetailScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_outline,
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
