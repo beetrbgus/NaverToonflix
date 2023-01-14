@@ -3,6 +3,7 @@ import 'package:toonflix/models/webtoon_detail.dart';
 import 'package:toonflix/models/webtoon_episode.dart';
 import 'package:toonflix/models/webtoon_model.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:toonflix/widgets/webtoon/episode_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final WebToonModel webtoon;
@@ -24,8 +25,6 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     webtoonDetail = ApiService.getDetailWebToonInfo(widget.webtoon.id);
     episode = ApiService.getEpisodesById(widget.webtoon.id);
-    print(webtoonDetail.toString());
-    print(episode.toString());
   }
 
   @override
@@ -118,43 +117,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Column(
                       children: [
                         for (var episode in snapshot.data!)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10,
-                            ),
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                bottom: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.green.shade400,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black87,
-                                    blurRadius: 1,
-                                    offset: Offset(0, 1),
-                                  )
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    episode.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
+                          Episode(
+                            episode: episode,
+                            webtoonId: widget.webtoon.id,
                           ),
                       ],
                     );
