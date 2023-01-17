@@ -10,34 +10,58 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final Future<List<WebToonModel>> webtoons = ApiService.getTodaysWebToons();
+  late TabController _myTabs;
+  double tabWidth = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    _myTabs = TabController(
+      length: 10,
+      vsync: this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 9,
-      child: Scaffold(
+    tabWidth = MediaQuery.of(context).size.width / 10;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 1,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 3,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.green.shade300,
-          centerTitle: true,
-          title: const Text(
-            "오늘의 웹툰",
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          bottom: TabBar(
-            tabs: homeTabbar,
+        foregroundColor: Colors.green.shade300,
+        centerTitle: true,
+        title: const Text(
+          "오늘의 웹툰",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        body: TabBarView(
-          children: tabBarView,
+        bottom: TabBar(
+          controller: _myTabs,
+          tabs: homeTabbar,
+          labelStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+          // 선택된 라벨의 색상
+          labelColor: Colors.green.shade400,
+          // 선택된 것(지시자)의 point?
+          indicatorColor: Colors.green.shade300,
+          // 선택되지 않은 라벨의 색상
+          unselectedLabelColor: Colors.black,
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
+      ),
+      body: TabBarView(
+        controller: _myTabs,
+        children: tabBarView,
       ),
     );
   }
@@ -71,201 +95,40 @@ class _HomeScreenState extends State<HomeScreen> {
       const Tab(
         text: '일',
       ),
+      const Tab(
+        text: '완결',
+      ),
     ];
   }
 
   List<Widget> get tabBarView {
-    return [
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      FutureBuilder(
-        future: webtoons,
-        builder: (context, futureResult) {
-          if (futureResult.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: makeList(futureResult),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    ];
+    List<Widget> arr = [];
+    for (var i = 0; i < 10; i++) {
+      arr.add(
+        FutureBuilder(
+          future: webtoons,
+          builder: (context, futureResult) {
+            if (futureResult.hasData) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Expanded(
+                    child: makeList(futureResult),
+                  ),
+                ],
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      );
+    }
+    return arr;
   }
 
   ListView makeList(AsyncSnapshot<List<WebToonModel>> futureResult) {
