@@ -44,8 +44,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         bottom: TabBar(
           controller: _myTabs,
           tabs: homeTabbar,
+          labelPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           labelStyle: const TextStyle(
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
           // 선택된 라벨의 색상
