@@ -3,6 +3,7 @@ import 'package:toonflix/models/webtoon_model.dart';
 import 'package:toonflix/services/api_service.dart';
 import 'package:toonflix/widgets/webtoon/webtoon_card.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     tabWidth = MediaQuery.of(context).size.width / 10;
     return Scaffold(
       backgroundColor: Colors.white,
