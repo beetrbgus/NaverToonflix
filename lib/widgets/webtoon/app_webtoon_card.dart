@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:toonflix/models/app_model.dart';
 import 'package:toonflix/widgets/webtoon/detail.dart';
 
-class WebToonCard extends StatelessWidget {
-  // final WebToonModel webtoon;
+import '../../models/app_model.dart';
+
+class AppWebToonCard extends StatelessWidget {
   final WebToonAppModel webtoon;
-  const WebToonCard({
+  const AppWebToonCard({
     super.key,
     required this.webtoon,
   });
@@ -14,6 +14,7 @@ class WebToonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print("온 땁!");
         // StatelessWidget을 route로 감싸서 다른 스크린처럼 보이게 해 줌.
         Navigator.push(
             context,
@@ -41,7 +42,10 @@ class WebToonCard extends StatelessWidget {
               ),
               clipBehavior: Clip.hardEdge,
               width: 250,
-              child: Image.network(webtoon.thumb),
+              child: Image.network(
+                webtoon.thumb,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           const SizedBox(height: 10),

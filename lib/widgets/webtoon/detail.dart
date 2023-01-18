@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toonflix/models/app_model.dart';
 import 'package:toonflix/models/webtoon_detail.dart';
 import 'package:toonflix/models/webtoon_episode.dart';
-import 'package:toonflix/models/webtoon_model.dart';
 import 'package:toonflix/services/api_service.dart';
 import 'package:toonflix/widgets/webtoon/episode_widget.dart';
 
 class DetailScreen extends StatefulWidget {
-  final WebToonModel webtoon;
+  final WebToonAppModel webtoon;
+  // final WebToonModel webtoon;
   const DetailScreen({
     super.key,
     required this.webtoon,
