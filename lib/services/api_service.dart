@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:toonflix/models/app_model.dart';
 import 'package:toonflix/models/webtoon_detail.dart';
 import 'package:toonflix/models/webtoon_episode.dart';
 import 'package:toonflix/models/webtoon_model.dart';
@@ -49,5 +51,29 @@ class ApiService {
       return episodeInstances;
     }
     throw Error();
+  }
+
+  static Future<List<WebToonAppModel>> getdailyWebtoons() async {
+    List<WebToonAppModel> items = [];
+    final String response =
+        await rootBundle.loadString('assets/data/daily_plus_webtoon.json');
+    final data = json.decode(response);
+    for (var webtoon in data) {
+      items.add(WebToonAppModel.fromJson(webtoon));
+    }
+    return items;
+  }
+
+  static Future<List<WebToonAppModel>> getNewWebtoons() async {
+    List<WebToonAppModel> items = [];
+    final String response =
+        await rootBundle.loadString('data/new_webtoon.json');
+
+    final List<dynamic> data = await jsonDecode(response);
+
+    for (var webtoon in data) {
+      items.add(WebToonAppModel.fromJson(webtoon));
+    }
+    return items;
   }
 }

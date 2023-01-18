@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:toonflix/models/webtoon_model.dart';
+import 'package:toonflix/models/app_model.dart';
 import 'package:toonflix/services/api_service.dart';
-import 'package:toonflix/widgets/webtoon/webtoon_card.dart';
 
+import '../widgets/webtoon/app_webtoon_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +12,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final Future<List<WebToonModel>> webtoons = ApiService.getTodaysWebToons();
+  // final Future<List<WebToonModel>> webtoons = ApiService.getTodaysWebToons();
+  final Future<List<WebToonAppModel>> webtoons = ApiService.getNewWebtoons();
   late TabController _myTabs;
   double tabWidth = 0;
   @override
@@ -27,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     tabWidth = MediaQuery.of(context).size.width / 10;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return arr;
   }
 
-  ListView makeList(AsyncSnapshot<List<WebToonModel>> futureResult) {
+  ListView makeList(AsyncSnapshot<List<WebToonAppModel>> futureResult) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: futureResult.data!.length,
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       itemBuilder: (context, index) {
         var webtoon = futureResult.data![index];
-        return WebToonCard(webtoon: webtoon);
+        return AppWebToonCard(webtoon: webtoon);
       },
       // 구분자를 build 하는 인자
       separatorBuilder: (context, index) => const SizedBox(
@@ -152,4 +152,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
+  // ListView makeList(AsyncSnapshot<List<WebToonModel>> futureResult) {
+  //   return ListView.separated(
+  //     scrollDirection: Axis.horizontal,
+  //     itemCount: futureResult.data!.length,
+  //     padding: const EdgeInsets.symmetric(
+  //       vertical: 10,
+  //       horizontal: 20,
+  //     ),
+  //     itemBuilder: (context, index) {
+  //       var webtoon = futureResult.data![index];
+  //       return WebToonCard(webtoon: webtoon);
+  //     },
+  //     // 구분자를 build 하는 인자
+  //     separatorBuilder: (context, index) => const SizedBox(
+  //       width: 40,
+  //     ),
+  //   );
+  // }
 }
