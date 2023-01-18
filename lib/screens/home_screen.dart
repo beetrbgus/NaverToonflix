@@ -16,13 +16,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final Future<List<WebToonAppModel>> webtoons = ApiService.getNewWebtoons();
   late TabController _myTabs;
   double tabWidth = 0;
+  final int todayWeekday = DateTime.now().weekday + 1;
+
   @override
   void initState() {
     super.initState();
-
     _myTabs = TabController(
       length: 10,
       vsync: this,
+      initialIndex: todayWeekday,
     );
   }
 
