@@ -12,8 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  // final Future<List<WebToonModel>> webtoons = ApiService.getTodaysWebToons();
-  final Future<List<WebToonAppModel>> webtoons = ApiService.getNewWebtoons();
+  final Future<List<WebToonAppModel>> newWebtoon = ApiService.getNewWebtoons();
+  final Future<List<WebToonAppModel>> dailyWebtoon =
+      ApiService.getdailyWebtoons();
   late TabController _myTabs;
   double tabWidth = 0;
   final int todayWeekday = DateTime.now().weekday + 1;
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       vsync: this,
       initialIndex: todayWeekday,
     );
+    print(tabBarView.length);
   }
 
   @override
@@ -109,49 +111,81 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<Widget> get tabBarView {
     List<Widget> arr = [];
     for (var i = 0; i < 10; i++) {
-      arr.add(
-        FutureBuilder(
-          future: webtoons,
-          builder: (context, futureResult) {
-            if (futureResult.hasData) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Expanded(
-                    child: makeList(futureResult),
-                  ),
-                ],
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-      );
+      if (i == 0) {
+        arr.add(
+          FutureBuilder(
+            future: newWebtoon,
+            builder: (context, futureResult) {
+              if (futureResult.hasData) {
+                return Container(
+                  child: makeList(futureResult),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        );
+      } else if (i == 1) {
+        arr.add(
+          FutureBuilder(
+            future: dailyWebtoon,
+            builder: (context, futureResult) {
+              if (futureResult.hasData) {
+                return Container(
+                  child: makeList(futureResult),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        );
+      } else {
+        arr.add(
+          FutureBuilder(
+            future: dailyWebtoon,
+            builder: (context, futureResult) {
+              if (futureResult.hasData) {
+                return Container(
+                  child: makeList(futureResult),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        );
+      }
     }
     return arr;
   }
 
-  ListView makeList(AsyncSnapshot<List<WebToonAppModel>> futureResult) {
-    return ListView.separated(
-      scrollDirection: Axis.horizontal,
+  GridView makeList(AsyncSnapshot<List<WebToonAppModel>> futureResult) {
+    return GridView.builder(
+      // GridView가 어떻게 구성될지 Delegate(대리자)로 설정
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 2,
+        crossAxisSpacing: 2,
+        childAspectRatio: 3 / 4,
+      ),
+      scrollDirection: Axis.vertical,
       itemCount: futureResult.data!.length,
       padding: const EdgeInsets.symmetric(
-        vertical: 10,
+        vertical: 20,
         horizontal: 20,
       ),
       itemBuilder: (context, index) {
         var webtoon = futureResult.data![index];
         return AppWebToonCard(webtoon: webtoon);
       },
-      // 구분자를 build 하는 인자
-      separatorBuilder: (context, index) => const SizedBox(
-        width: 40,
-      ),
     );
   }
   // ListView makeList(AsyncSnapshot<List<WebToonModel>> futureResult) {

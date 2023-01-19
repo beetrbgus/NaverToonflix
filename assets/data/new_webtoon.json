@@ -1,65 +1,65 @@
 [
     { 
-        "id" :  804989,
+        "id" :  "804989",
         "title" : "굿헌팅",
         "author" : "HB / 홍반장,심조",
-        "rating" : 9.85,
+        "rating" : "9.85",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804989/thumbnail/thumbnail_IMAG06_b106b95f-6b29-4301-80db-1c051e42255f.jpg"
     },
     { 
-        "id" : 804871,
+        "id" : "804871",
         "title" : "넷시의 비밀",
         "author" : "비온후",
-        "rating" : 9.86,
+        "rating" : "9.86",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804871/thumbnail/thumbnail_IMAG06_92f89475-cf04-4821-86ad-c91ad9bc34a8.jpg"
     },
     { 
-        "id" : 803891,
+        "id" : "803891",
         "title" : "용한소녀",
         "author" : "올소",
-        "rating" : 9.97,
+        "rating" : "9.97",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/803891/thumbnail/thumbnail_IMAG06_47084634-ea6a-4eb4-b98a-01d0b30dcb28.jpg"
     },
     { 
-        "id" : 804333,
+        "id" : "804333",
         "title" : "그냥 선생님",
         "author" : "연일",
-        "rating" : 9.97,
+        "rating" : "9.97",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804333/thumbnail/thumbnail_IMAG06_d5dd2456-5b72-482c-adef-b3344b8cb7f7.jpg"
     },
     { 
-        "id" : 804783,
+        "id" : "804783",
         "title" : "사변괴담",
         "author" : "강태진",
-        "rating" : 9.60,
+        "rating" : "9.60",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804783/thumbnail/thumbnail_IMAG06_d58680f1-5310-48f0-9e73-f3aaa001cdce.jpg"
     },
     { 
-        "id" : 804653,
+        "id" : "804653",
         "title" : "유사연애",
         "author" : "여은",
-        "rating" : 9.89,
+        "rating" : "9.89",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804653/thumbnail/thumbnail_IMAG06_1d440141-34c3-4c95-a7f4-4e28d9e411fd.jpg"
     },
     { 
-        "id" : 804469,
+        "id" : "804469",
         "title" : "원하나",
         "author" : "비진",
-        "rating" : 9.86,
+        "rating" : "9.86",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804469/thumbnail/thumbnail_IMAG06_f98a6600-7225-4df2-9fb2-93f487e66da1.jpg"
     },
     { 
-        "id" : 805156,
+        "id" : "805156",
         "title" : "고양이 타타",
         "author" : "로로",
-        "rating" : 9.97,
+        "rating" : "9.97",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/805156/thumbnail/thumbnail_IMAG06_f9e2670d-0db6-477b-a1f7-be44dc14b264.jpg"
     },
     { 
-        "id" : 804329,
+        "id" : "804329",
         "title" : "약탈 신부",
         "author" : "팀 카푸치노",
-        "rating" : 9.95,
+        "rating" : "9.95",
         "thumb" : "https://shared-comic.pstatic.net/thumb/webtoon/804329/thumbnail/thumbnail_IMAG06_f4e0f1cb-f4ec-4ee0-9b60-ffd37788d075.jpg"
     }
 ]

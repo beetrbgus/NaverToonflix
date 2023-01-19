@@ -6,9 +6,9 @@ class WebToonAppModel {
   final double rating;
 
   WebToonAppModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int,
+      : id = int.parse(json['id']),
         title = json['title'].toString(),
         author = json['author'].toString(),
         thumb = json['thumb'].toString(),
-        rating = json['rating'] as double;
+        rating = double.parse(json['rating']);
 }

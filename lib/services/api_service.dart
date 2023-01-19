@@ -56,10 +56,11 @@ class ApiService {
   static Future<List<WebToonAppModel>> getdailyWebtoons() async {
     List<WebToonAppModel> items = [];
     final String response =
-        await rootBundle.loadString('assets/data/daily_plus_webtoon.json');
-    final data = json.decode(response);
+        await rootBundle.loadString('data/daily_plus_webtoon.json');
+    final List<dynamic> data = await jsonDecode(response);
     for (var webtoon in data) {
-      items.add(WebToonAppModel.fromJson(webtoon));
+      WebToonAppModel webtoon2 = WebToonAppModel.fromJson(webtoon);
+      items.add(webtoon2);
     }
     return items;
   }
