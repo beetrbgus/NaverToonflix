@@ -14,7 +14,6 @@ class AppWebToonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("온 땁!");
         // StatelessWidget을 route로 감싸서 다른 스크린처럼 보이게 해 줌.
         Navigator.push(
             context,
@@ -24,39 +23,55 @@ class AppWebToonCard extends StatelessWidget {
               // chrome은 그냥 페이지 변경하는 것 같음.
             ));
       },
-      child: Column(
-        children: [
-          // 같은 tag의 widget을 연결해 줌
-          Hero(
-            tag: webtoon.id,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 7),
-                    color: Colors.black.withOpacity(0.8),
-                  )
-                ],
-              ),
-              clipBehavior: Clip.hardEdge,
-              width: 250,
-              child: Image.network(
-                webtoon.thumb,
-                fit: BoxFit.fill,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 7,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 같은 tag의 widget을 연결해 줌
+            Flexible(
+              flex: 7,
+              child: Hero(
+                tag: webtoon.id,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  width: double.infinity,
+                  height: 300,
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.network(
+                    webtoon.thumb,
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            webtoon.title,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
+            const SizedBox(height: 3),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  webtoon.title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  webtoon.author,
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
