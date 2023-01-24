@@ -4,7 +4,6 @@ import 'package:toonflix/models/app_model.dart';
 import 'package:toonflix/models/webtoon_detail.dart';
 import 'package:toonflix/models/webtoon_episode.dart';
 import 'package:toonflix/services/api_service.dart';
-import 'package:toonflix/widgets/webtoon/episode_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final WebToonAppModel webtoon;
@@ -23,6 +22,7 @@ class _DetailScreenState extends State<DetailScreen> {
   late Future<List<WebToonEpisode>> episode;
   late SharedPreferences prefs;
   late bool isLiked = false;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +45,7 @@ class _DetailScreenState extends State<DetailScreen> {
     }
   }
 
+  void favorite() {}
   onHeartTap() async {
     final likedToons = prefs.getStringList('likedToons');
     if (likedToons != null) {
@@ -65,33 +66,53 @@ class _DetailScreenState extends State<DetailScreen> {
     // webtoon list에서 이동되기 때문에 Scaffold
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 3,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green.shade300,
-        centerTitle: true,
-        title: Text(
-          widget.webtoon.title,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: onHeartTap,
-            icon: Icon(
-              isLiked ? Icons.favorite : Icons.favorite_outline,
-            ),
-          )
-        ],
-      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(50),
-          child: Column(
-            children: [
-              Row(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: 120,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(130, 181, 106, 1),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                  ),
+                  Row(
+                    children: [
+                      TextButton.icon(
+                        onPressed: favorite,
+                        icon: const Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.white,
+                        ),
+                        label: const Text(
+                          "관심",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.more_vert_outlined,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Hero(
@@ -109,66 +130,16 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       clipBehavior: Clip.hardEdge,
                       width: 250,
-                      child: Image.network(widget.webtoon.thumb),
+                      child: Image.network(
+                        widget.webtoon.thumb,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
-              FutureBuilder(
-                future: webtoonDetail,
-                builder: (context, detailResult) {
-                  if (detailResult.hasData) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          detailResult.data!.about,
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          '${detailResult.data!.genre} / ${detailResult.data!.age}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-              const SizedBox(height: 20),
-              FutureBuilder(
-                future: episode,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        for (var episode in snapshot.data!)
-                          Episode(
-                            episode: episode,
-                            webtoonId: widget.webtoon.id,
-                          ),
-                      ],
-                    );
-                  }
-                  return Container();
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
